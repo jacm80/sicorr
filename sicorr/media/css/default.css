@@ -1,0 +1,182 @@
+/*
+	CSS General de la Aplicacion
+*/
+
+* 
+{
+	font-family: Arial, Helvetica, sans-serif;
+   font-size: 10pt;
+}
+
+body
+{
+	width: 800px;
+	margin: 0 auto;
+}
+
+h3
+{
+text-align:center;
+}
+
+#msg 
+{
+	margin: 0 auto;
+	text-align: center;
+}
+
+#tabla_login
+{
+	margin: 0 auto;
+	border: 1px solid #1378b2;
+   border-radius: 20px;
+}
+
+#tabla_login tr td 
+{ 
+	padding: 8px; 
+}
+
+#header {
+    background: url(../images/header.jpg) no-repeat scroll 0 0 #88B4F5;
+    height: 150px;
+}
+
+#content
+{
+	border: 2px solid #1378b2;
+	padding: 20px;
+	padding-top:0px;
+}
+
+#footer
+{
+	padding: 20px;
+	height: 30px;
+	background-color: #1378b2;
+	color: white;
+	font-size: 10pt;
+	text-align:center;
+}
+
+#msj
+{
+	text-align: center;
+	font-size: 12pt;
+	color: green;
+}
+
+#error
+{
+	text-align: center;
+	font-size: 12pt;
+	color: red;
+}
+
+
+
+.tr_azul
+{
+background-color:#85bf87;
+}
+.tr_verde
+{
+background-color:#bbeae7;
+}
+
+
+/* grid o tabla tabular */
+
+.grid 
+{
+	font-size: 9pt;
+	width: 95%;
+	margin: 0 auto;
+	border: 1px solid #1378b2;
+}
+
+.grid thead th
+{
+	background-color: #1378b2;
+	color: white;
+	padding: 4px;
+}
+
+.grid tbody tr.odd 
+{
+	background-color: #e3e3e3;
+}
+
+.grid tbody tr td
+{
+	padding: 4px;
+}
+
+.grid tbody tr td.oper
+{
+	width:10%;
+	text-align:center;
+}
+/* */
+
+#hide_all 
+{
+  /*	
+  z-index: 8999;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 0.5;
+  width: 0px;
+  height: 0px;
+  */ 
+   width:100%;
+	height:100%;
+	position:absolute;
+	background:url(../images/bg-grey.png);
+	top:0px;
+	left:0px;
+	z-index:8999;
+   /**/
+}
+
+/* grid libreria extjs */
+
+#grid-consulta 
+{
+	/*border: 1px solid black;*/ 
+	margin: 0 auto; 
+	text-align: center; 
+	width: 95%;
+}
+
+/* formularios del sistema */
+
+#form 
+{
+	margin: 0 auto;
+	border: 2px solid #1378b2;
+	padding: 0px;
+	width:95%; 
+}
+
+#form tr td
+{
+	padding: 8px;
+}
+
+#form tr td.input
+{
+	background: #b5ccdf;
+}
+
+#form tr td.td_boton
+{
+	text-align:center;
+	background: #1378b2;
+}
+
+#form thead tr
+{
+	padding: 4px;
+}

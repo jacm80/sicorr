@@ -1,0 +1,15 @@
+Event.observe(window,'load', function( ) {
+	Event.observe('aceptar','click',function( ) {
+		/*
+		var campos = ['direccion','cedula','nombre','apellido','telefono'];
+		//
+		for (var i=0;i<=4;i++) {
+			if ($(campos[i]).value == '') { 
+				alert(campos[i]+' no puede estar vacio');
+				return;
+			}
+		}
+		*/
+		$("elform").submit( );
+	});	
+});

@@ -1,0 +1,83 @@
+
+<h3 ="/sicorr/correspondencia/nuevo" style="display:block; text-align:center;">BIENVENIDO AL REGISTRO DE CORRESPONDENCIA</h3> <br>
+<table id="grid">
+  <tbody>  
+     <td> <a href="<?php echo url::base( );?>organismo">Organismos</a></td>
+     <td> <a href="<?php echo url::base( );?>contacto/nuevo">Registrar Contacto</a></td>
+     <td> <a href="<?php echo url::base( );?>consulta">Consulta</a></td>     
+     <td> <a href="<?php echo url::base( );?>menu">Ir al Menú</a></td>
+     <td> <a href="<?php echo url::base( ); ?>reporte"> Reporte </a>
+     <td> <a href="<?php echo url::base( );?>login">Salir</a></td>
+
+  </tbody>
+</table>
+
+
+
+<br>
+<br>
+<form action="<?php echo url::base( ); ?>correspondencia/guardar" method="post" id="elform" name="elform">
+	<input type="hidden" id="id" name="id" value="<?php if (isset($id)) echo $id; ?>"/>
+	<table id="form">
+	    <tr>
+			<td>Fecha de Recibido: </td>
+			<td>
+			  <input name="fecha_recibido" id="fecha_recibido" value="<?php if (isset($fecha_recidibo)) echo $fecha_recibido; ?>"/>
+			</td>
+		</tr>
+<tr>
+			<td>Fecha de Oficio:</td>
+			<td>
+			  <input name="fecha_oficio" id="fecha_oficio" value="<?php if (isset($fecha_oficio)) echo $fecha_oficio; ?>"/>
+			 
+			</td>
+</tr>
+			
+		<tr>
+			<td>Numero de Oficio:</td>
+			<td>
+				<input name="nro_oficio" id="nro_oficio" value="<?php if (isset($nro_ofico)) echo $nro_oficio; ?>"/>
+			</td>
+		</tr>
+		<tr>
+			<td>Suscrito por:</td>
+			<td>
+				<input name="suscrito" id="suscrito" value="<?php if (isset($suscrito)) echo $suscrito; ?>"/>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Asunto:</td>
+			<td>
+				<input name="asunto" id="asunto" value="<?php if (isset($asunto)) echo $asunto; ?>"/>
+			</td>
+		</tr>
+		<tr>
+			<td>Organismo:</td>
+			<td><?php echo form::dropdown(array('id'=>'organismo_id','name'=>'organismo_id'),$organismos,(isset($organismo_id))?$organismo_id:0) ?></td>
+		</tr>
+		
+		<tr>
+			<td>Contactos:</td>
+			<?php if (uri::segment(2)=='editar'): ?>
+				<?php echo '<td>' . form::dropdown(array('id'=>'contacto_id','name'=>'contacto_id'),isset($contactos)?$contactos:array(),(isset($contacto_id))?$contacto_id:0) .'</td>' ?>
+				<?php else: ?>
+				  <td><div id="contactos_div"></div></td>
+				<?php endif ?>
+		</tr>
+		
+		<tr>
+			<td>Dependencia:</td>
+			<td><?php echo form::dropdown(array('id'=>'dependencia_id','name'=>'dependencia_id'),$dependencias,(isset($dependencia_id))?$dependencia_id:0) ?></td>
+		</tr>
+	  
+    
+		
+		<tr>
+			<td colspan="2" class="td_boton">
+				<button id="aceptar" 	name="aceptar" type="button">Aceptar</button>
+				<button id="restablecer" name="restablecer" type="reset">Restablecer</button>
+			</td>
+		</tr>
+	</table>
+</form>

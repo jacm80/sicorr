@@ -1,0 +1,60 @@
+
+<h3 ="/sicorr/dependencia/nuevo" style="display:block; text-align:center;">Dependencia Nueva</h3> <br>
+<table id="grid">
+  <tbody>  
+     <td> <a href="<?php echo url::base( );?>organismo">Organismos</a></td>
+     <td> <a href="<?php echo url::base( );?>contacto/nuevo">Registrar Contacto</a></td>
+     <td> <a href="<?php echo url::base( );?>consulta">Consulta</a></td>     
+     <td> <a href="<?php echo url::base( );?>menu">Ir al Menú</a></td>
+     <td> <a href="<?php echo url::base( ); ?>reporte"> Reporte </a>
+     <td> <a href="<?php echo url::base( );?>login">Salir</a></td>
+
+  </tbody>
+</table>
+
+
+
+<br>
+<br>
+<form action="<?php echo url::base( ); ?>dependencia/guardar" method="post" id="elform">
+	<input type="hidden" id="id" name="id" value="<?php if (isset($id)) echo $id; ?>"/>
+	<table id="form" style="width:50%;">
+	   <tr>
+			<td style="width:30%;">Nombre de Direccion: </td>
+			<td>
+			  <input name="direccion" id="direccion" value="<?php if (isset($direccion)) echo $direccion; ?>" style="width:100%;"/>
+			</td>
+		</tr>
+		<tr>
+			<td>Cedula del Director: </td>
+			<td>
+			  <input name="cedula" id="cedula" value="<?php if (isset($cedula)) echo $cedula; ?>" style="width:100%;"/>
+			</td>
+		</tr>
+      <tr>
+			<td>Nombre de Director:</td>
+			<td>
+			  <input name="nombre" id="nombre" value="<?php if (isset($nombre)) echo $nombre; ?>" style="width:100%;"/>
+			 
+			</td>
+      </tr>	
+		<tr>
+			<td>Apellido de Director:</td>
+			<td>
+				<input name="apellido" id="apellido" value="<?php if (isset($apellido)) echo $apellido; ?>" style="width:100%;"/>
+			</td>
+		</tr>
+		<tr>
+			<td>Telefono</td>
+			<td>
+				<input name="telefono" id="telefono" value="<?php if (isset($telefono)) echo $telefono; ?>" style="width:100%;"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="td_boton">
+				<button id="aceptar" 	name="aceptar" type="button">Aceptar</button>
+				<button id="restablecer" name="restablecer"  type="reset">Restablecer</button>
+			</td>
+		</tr>
+	</table>
+</form>

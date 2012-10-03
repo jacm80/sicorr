@@ -1,0 +1,21 @@
+<div style="text-align:center;font-weight:bold;">
+Sistema de Gestión de Correspondencia
+<br />
+<br />
+REPORTES
+</div>
+<br />
+<br />
+<form id="frmR" method="post" action=""	>
+<table style="margin:0 auto;">
+	<tbody>
+	   <tr>
+		  <td>Fecha Inicio:</td>
+		  <td><input id="fecha_inicio" name="fecha_inicio" type="text" /></td>
+		  <td>Fecha Fin:</td>
+		  <td><input id="fecha_fin" name="fecha_fin" type="text" /></td> 
+	   </tr>  
+  </tbody>
+</table>
+<a href="<?php echo url::base( ); ?>reporte"></a>
+</form>

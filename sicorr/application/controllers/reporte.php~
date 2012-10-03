@@ -1,0 +1,39 @@
+<?php
+
+	// cargar las librerias	
+	require Kohana::find_file('vendor','mc_table');
+	define('FPDF_FONTPATH', APPPATH . 'font-pdf/');
+
+	class Reporte_controller extends Controller {
+		
+		var $wrapper;
+
+		public function __construct( )
+		{
+			parent::__construct( );
+			$this->session = Session::instance( );
+			$this->wrapper = new View('wrapper');
+		}
+
+		/*----------------------------------*/
+
+		public function index( )
+		{
+			$this->wrapper->prototype = 1;
+			$content = new View('reporte/index');
+			$this->wrapper->content = $content;
+			$this->wrapper->estilos = array('calendar');
+			$this->wrapper->js = array('calendar','reporte');
+			$this->wrapper->render(TRUE);
+		}
+
+		public function correspondenciaxfecha( )
+		{
+			
+		}
+
+
+	}	
+	
+		
+// End Login

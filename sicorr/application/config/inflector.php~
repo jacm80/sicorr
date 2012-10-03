@@ -1,0 +1,19 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+	
+	$config['uncountable'] = array(
+		'menu'=>'menu',
+	  	  
+	);
+ 
+	$config['irregular'] = array
+	(
+	  'usuario' 	  		=> 'usuarios',	
+	  'organismo'	 		=> 'organismos',
+	  'grupo'		   	=> 'grupos',
+	  'correspondencia'	=> 'correspondencias', 
+	  'contacto'      	=> 'contactos',
+	  'dependencia'      => 'dependencias'
+     'estadocorrespondencia' => 'estadocorrespondencia',
+	);
+	
+//End Inflector

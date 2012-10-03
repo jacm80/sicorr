@@ -1,0 +1,68 @@
+<?php defined('SYSPATH') or die('No direct script access.'); ?>
+
+2012-01-02 09:44:41 -04:00 --- error: Kohana_PHP_Exception [ 32 ]: PHP Startup: Unable to load dynamic library '/usr/lib/php5/20090626+lfs/xmlrpc.so' - /usr/lib/php5/20090626+lfs/xmlrpc.so: cannot open shared object file: No such file or directory ~ Unknown [ 0 ]
+2012-01-02 09:47:14 -04:00 --- error: Kohana_PHP_Exception [ 32 ]: PHP Startup: Unable to load dynamic library '/usr/lib/php5/20090626+lfs/xmlrpc.so' - /usr/lib/php5/20090626+lfs/xmlrpc.so: cannot open shared object file: No such file or directory ~ Unknown [ 0 ]
+2012-01-02 09:52:06 -04:00 --- error: Kohana_PHP_Exception [ 32 ]: PHP Startup: Unable to load dynamic library '/usr/lib/php5/20090626+lfs/xmlrpc.so' - /usr/lib/php5/20090626+lfs/xmlrpc.so: cannot open shared object file: No such file or directory ~ Unknown [ 0 ]
+2012-01-02 09:52:07 -04:00 --- error: Kohana_PHP_Exception [ 32 ]: PHP Startup: Unable to load dynamic library '/usr/lib/php5/20090626+lfs/xmlrpc.so' - /usr/lib/php5/20090626+lfs/xmlrpc.so: cannot open shared object file: No such file or directory ~ Unknown [ 0 ]
+2012-01-02 09:53:42 -04:00 --- error: Kohana_PHP_Exception [ 4 ]: syntax error, unexpected '}', expecting ',' or ';' ~ APPPATH/controllers/login.php [ 8 ]
+2012-01-02 09:59:20 -04:00 --- error: Kohana_PHP_Exception [ 4 ]: syntax error, unexpected T_PRIVATE, expecting T_VARIABLE ~ APPPATH/controllers/login.php [ 5 ]
+2012-01-02 09:59:29 -04:00 --- error: Kohana_Exception [ 42 ]: The requested view, login/index.php, could not be found ~ SYSPATH/core/Kohana.php [ 788 ]
+2012-01-02 10:00:26 -04:00 --- error: Kohana_Exception [ 42 ]: The requested view, login/index.php, could not be found ~ SYSPATH/core/Kohana.php [ 788 ]
+2012-01-02 10:00:34 -04:00 --- error: Kohana_Exception [ 42 ]: The requested view, login/index.php, could not be found ~ SYSPATH/core/Kohana.php [ 788 ]
+2012-01-02 10:01:07 -04:00 --- error: Kohana_Exception [ 42 ]: The requested view, views/login/index.php, could not be found ~ SYSPATH/core/Kohana.php [ 788 ]
+2012-01-02 10:02:30 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Call to a member function _kohana_load_view() on a non-object ~ SYSPATH/libraries/View.php [ 279 ]
+2012-01-02 10:11:17 -04:00 --- error: Kohana_404_Exception [ 43 ]: The page you requested, login/index.php, could not be found. ~ SYSPATH/libraries/Kohana_404_Exception.php [ 42 ]
+2012-01-02 10:59:25 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Call to undefined function View() ~ APPPATH/controllers/login.php [ 24 ]
+2012-01-02 10:59:40 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Class 'HTML' not found ~ APPPATH/views/wrapper.php [ 11 ]
+2012-01-02 11:01:55 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Class 'HTML' not found ~ APPPATH/views/wrapper.php [ 11 ]
+2012-01-02 11:02:49 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Class 'HTML' not found ~ APPPATH/views/wrapper.php [ 11 ]
+2012-01-02 11:09:35 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Class 'HTML' not found ~ APPPATH/views/wrapper.php [ 11 ]
+2012-01-02 11:10:15 -04:00 --- error: Kohana_404_Exception [ 43 ]: The page you requested, media/css/default, could not be found. ~ SYSPATH/libraries/Kohana_404_Exception.php [ 42 ]
+2012-01-02 11:21:06 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Class 'base' not found ~ APPPATH/views/login/index.php [ 1 ]
+2012-01-02 11:22:01 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Class 'Usuario_Model' not found ~ SYSPATH/libraries/ORM.php [ 90 ]
+2012-01-02 11:22:21 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Class 'Usuario_Model' not found ~ SYSPATH/libraries/ORM.php [ 90 ]
+2012-01-02 11:23:01 -04:00 --- error: Kohana_PHP_Exception [ 4 ]: syntax error, unexpected ';', expecting ')' ~ APPPATH/config/inflector.php [ 9 ]
+2012-01-02 11:23:30 -04:00 --- error: Kohana_PHP_Exception [ 4 ]: syntax error, unexpected ';', expecting ')' ~ APPPATH/config/inflector.php [ 9 ]
+2012-01-02 11:23:47 -04:00 --- error: Kohana_PHP_Exception [ 2 ]: array_combine(): Both parameters should have at least 1 element ~ SYSPATH/helpers/inflector.php [ 35 ]
+2012-01-02 11:24:19 -04:00 --- error: Kohana_PHP_Exception [ 8 ]: Undefined variable: clave ~ APPPATH/controllers/login.php [ 33 ]
+2012-01-02 11:25:20 -04:00 --- error: Kohana_PHP_Exception [ 8 ]: Undefined variable: clave ~ APPPATH/controllers/login.php [ 33 ]
+2012-01-02 11:25:44 -04:00 --- error: Kohana_PHP_Exception [ 8 ]: Undefined variable: clave ~ APPPATH/controllers/login.php [ 33 ]
+2012-01-02 11:26:05 -04:00 --- error: Kohana_PHP_Exception [ 8 ]: Undefined variable: password ~ APPPATH/controllers/login.php [ 33 ]
+2012-01-02 11:26:13 -04:00 --- error: Kohana_PHP_Exception [ 32 ]: PHP Startup: Unable to load dynamic library '/usr/lib/php5/20090626+lfs/xmlrpc.so' - /usr/lib/php5/20090626+lfs/xmlrpc.so: cannot open shared object file: No such file or directory ~ Unknown [ 0 ]
+2012-01-02 11:26:16 -04:00 --- error: Kohana_PHP_Exception [ 32 ]: PHP Startup: Unable to load dynamic library '/usr/lib/php5/20090626+lfs/xmlrpc.so' - /usr/lib/php5/20090626+lfs/xmlrpc.so: cannot open shared object file: No such file or directory ~ Unknown [ 0 ]
+2012-01-02 11:26:22 -04:00 --- error: Kohana_PHP_Exception [ 32 ]: PHP Startup: Unable to load dynamic library '/usr/lib/php5/20090626+lfs/xmlrpc.so' - /usr/lib/php5/20090626+lfs/xmlrpc.so: cannot open shared object file: No such file or directory ~ Unknown [ 0 ]
+2012-01-02 11:27:00 -04:00 --- error: Kohana_PHP_Exception [ 8 ]: Undefined variable: password ~ APPPATH/controllers/login.php [ 33 ]
+2012-01-02 11:28:11 -04:00 --- error: Kohana_Exception [ 42 ]: The count_last_query property does not exist in the Usuario_model class ~ SYSPATH/libraries/ORM.php [ 400 ]
+2012-01-02 11:28:43 -04:00 --- error: Kohana_Exception [ 42 ]: Invalid method count_last_query called in Usuario_model ~ SYSPATH/libraries/ORM.php [ 271 ]
+2012-01-02 11:30:21 -04:00 --- error: Database_Exception [ 1054 ]: Unknown column 'nombre' in 'where clause' [ SELECT `usuarios`.*
+FROM `usuarios`
+WHERE `nombre` = 'usuario' AND `password` = '12345'
+ORDER BY `usuarios`.`id` asc
+LIMIT 1 ] ~ SYSPATH/libraries/Database_Mysql_Result.php [ 29 ]
+2012-01-02 11:30:21 -04:00 --- error: Missing messages entry core.errors.1054 for message core
+2012-01-02 11:31:01 -04:00 --- error: Database_Exception [ 1054 ]: Unknown column 'usuarios.id' in 'order clause' [ SELECT `usuarios`.*
+FROM `usuarios`
+WHERE `usuario` = 'usuario' AND `password` = '12345'
+ORDER BY `usuarios`.`id` asc
+LIMIT 1 ] ~ SYSPATH/libraries/Database_Mysql_Result.php [ 29 ]
+2012-01-02 11:31:01 -04:00 --- error: Missing messages entry core.errors.1054 for message core
+2012-01-02 11:38:23 -04:00 --- error: Kohana_Exception [ 42 ]: Invalid method count_last_query called in Usuario_model ~ SYSPATH/libraries/ORM.php [ 271 ]
+2012-01-02 11:39:16 -04:00 --- error: Kohana_Exception [ 42 ]: Invalid method count_last_query called in Usuario_model ~ SYSPATH/libraries/ORM.php [ 271 ]
+2012-01-02 11:39:21 -04:00 --- error: Kohana_Exception [ 42 ]: Invalid method count_last_query called in Usuario_model ~ SYSPATH/libraries/ORM.php [ 271 ]
+2012-01-02 11:40:14 -04:00 --- error: Kohana_Exception [ 42 ]: Invalid method count_last_query called in Usuario_model ~ SYSPATH/libraries/ORM.php [ 271 ]
+2012-01-02 11:40:23 -04:00 --- error: Kohana_Exception [ 42 ]: Invalid method count_last_query called in Usuario_model ~ SYSPATH/libraries/ORM.php [ 271 ]
+2012-01-02 11:43:17 -04:00 --- error: Kohana_PHP_Exception [ 2 ]: Missing argument 1 for Database_Builder_Core::where(), called in /var/www/sicorr/system/libraries/ORM.php on line 245 and defined ~ SYSPATH/libraries/Database_Builder.php [ 569 ]
+2012-01-02 11:45:23 -04:00 --- error: Kohana_404_Exception [ 43 ]: The page you requested, login/login, could not be found. ~ SYSPATH/libraries/Kohana_404_Exception.php [ 42 ]
+2012-01-02 11:45:44 -04:00 --- error: Kohana_404_Exception [ 43 ]: The page you requested, login/login, could not be found. ~ SYSPATH/libraries/Kohana_404_Exception.php [ 42 ]
+2012-01-02 11:46:14 -04:00 --- error: Kohana_404_Exception [ 43 ]: The page you requested, login/login, could not be found. ~ SYSPATH/libraries/Kohana_404_Exception.php [ 42 ]
+2012-01-02 11:48:33 -04:00 --- error: Kohana_404_Exception [ 43 ]: The page you requested, login/login, could not be found. ~ SYSPATH/libraries/Kohana_404_Exception.php [ 42 ]
+2012-01-02 11:48:59 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Call to undefined function redirect() ~ APPPATH/controllers/login.php [ 43 ]
+2012-01-02 13:51:12 -04:00 --- error: Kohana_404_Exception [ 43 ]: The page you requested, login/login, could not be found. ~ SYSPATH/libraries/Kohana_404_Exception.php [ 42 ]
+2012-01-02 14:41:18 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Class 'base' not found ~ APPPATH/views/menu/index.php [ 2 ]
+2012-01-02 14:41:18 -04:00 --- error: Kohana_PHP_Exception [ 1 ]: Class 'base' not found ~ APPPATH/views/menu/index.php [ 2 ]
+2012-01-02 14:42:38 -04:00 --- error: Kohana_PHP_Exception [ 8 ]: Undefined variable: organismos ~ APPPATH/views/organismo/index.php [ 8 ]
+2012-01-02 14:45:52 -04:00 --- error: Kohana_PHP_Exception [ 8 ]: Undefined variable: organismos ~ APPPATH/views/organismo/index.php [ 8 ]
+2012-01-02 14:51:28 -04:00 --- error: Kohana_PHP_Exception [ 8 ]: Undefined variable: organismos ~ APPPATH/views/organismo/index.php [ 8 ]
+2012-01-02 15:27:42 -04:00 --- error: Kohana_PHP_Exception [ 8 ]: Undefined variable: content ~ APPPATH/views/wrapper.php [ 26 ]
+2012-01-02 15:40:23 -04:00 --- error: Kohana_PHP_Exception [ 2 ]: Missing argument 1 for Organismo_controller::guardar() ~ APPPATH/controllers/organismo.php [ 34 ]
+2012-01-02 15:55:18 -04:00 --- error: Kohana_404_Exception [ 43 ]: The page you requested, organismo/eliminar/1, could not be found. ~ SYSPATH/libraries/Kohana_404_Exception.php [ 42 ]

@@ -1,0 +1,53 @@
+<table id="grid">
+  <tbody>  
+<td> <a href="<?php echo url::base( );?>organismo">Organismos</a> </td>
+<td> <a href="<?php echo url::base( ); ?>correspondencia/nuevo">Registrar Correspondencia</a><br /></td>
+<td> <a href="<?php echo url::base( );?>reporte">Reporte</a></td>
+<td> <a href="<?php echo url::base( );?>login">Salir</a></td>
+  </tbody>
+</table>
+
+<br>
+
+
+<table id="grid">
+	<thead>
+		<th>id</th>
+		<th>Fecha de Recibido</th>
+		<th>Fecha de Oficio</th>
+		<th>Numero de Oficio</th>
+		<th>Asunto</th>
+		<th>Contacto</th>
+		<th>Suscrito por</th>
+		<th>Dependencia</th>
+		<th>Accion</th>
+	</thead>
+	<tbody>
+		<?php $i=0; ?>
+		<?php foreach ($correspondencias as $o):?>
+			<tr
+				<?php if ($i % 2 != 0): ?>
+					class="odd"
+				<?php endif?>
+				>
+				<td><?php echo $o['id']; 				           ?></td>
+				<td><?php echo $o['fecha_recibido'];           ?></td>
+				<td><?php echo $o['fecha_oficio']; 		        ?></td>
+				<td><?php echo $o['nro_oficio']; 		        ?></td>
+				<td><?php echo $o['asunto']; 			           ?></td>
+				<td><?php echo $o['contacto'];     	           ?></td>
+				<td><?php echo $o['suscrito']; 			        ?></td>
+				<td><?php echo $o['dependencia'];              ?></td>
+            <td><?php echo $o['estadocorrespondencia_id']  ?></td> 
+				<td><a href="<?php echo url::base( )?>correspondencia/editar/<?php echo $o['id']; ?>" />
+							Editar</a>
+							&nbsp;
+					<a href="<?php echo url::base( )?>correspondencia/eliminar/<?php echo $o['id']; ?>" />
+							Eliminar</a>
+						
+				</td>
+			</tr>
+		<?php $i++; ?>
+		<?php endforeach ?>
+	</tbody>
+</table>

@@ -1,0 +1,206 @@
+<?php
+	
+	class Correspondencia_controller extends Controller {
+		
+		var $wrapper;
+
+		public function __construct( )
+		{
+			parent::__construct( );
+			$this->session = Session::instance( );
+			$this->wrapper = new View('wrapper');
+			$this->db = Database::instance( );
+		}
+
+		/*----------------------------------*/
+
+		private function _get_organismos( )
+		{
+			$data[0] = 'Seleccione';
+			$organismos = ORM::factory('organismo')->find_all( );
+			foreach($organismos as $o) $data[$o->id] = $o->descripcion;
+			return $data;
+		}
+
+      private function _get_dependencias( )
+      {
+		 $dependencias = ORM::factory ('dependencia')->find_all( );
+		 foreach ($dependencias as $d) $data[ ] = array('id'=>$d->id,'siglas'=>$d->siglas,'direccion'=>$d->direccion);
+		 return $data;
+	   }
+        
+      private function _get_instrucciones( ) 
+		{
+		 $data[0] = 'Seleccione';
+		 $instrucciones = ORM::factory('instruccion')->find_all( );
+		 foreach ($instrucciones as $i) $data[$i->id] = $i->descripcion;
+		 return $data; 	 
+		}
+	
+		public function index( )
+		{
+			$data = array( );
+			$content = new View('correspondencia/index');
+			$corr = ORM::factory('correspondencia')->find_all( );
+			foreach ($corr as $c)
+			{
+				$data[] = array(
+								'id'    		    => $c->id,
+								'fecha_recibido'   	=> $c->fecha_recibido,
+								'fecha_oficio'	    => $c->fecha_oficio,
+								'nro_oficio'	    => $c->nro_oficio,
+								'asunto'		    => $c->asunto,
+								'contacto'		    => $c->contacto->descripcion,
+								'suscrito'	 	    => $c->suscrito,
+								'dependencia'	    => $c->dependencia->direccion,
+								);
+			}
+			$content->correspondencias = $data;
+			$this->wrapper->content = $content;
+			$this->wrapper->render(TRUE);
+		}
+		
+		public function llenar_contactos( )
+		{
+			$data[0] = 'Seleccione';
+			$organismo_id = $_POST['id'];
+			$contactos = ORM::factory('contacto')->where(array('organismo_id'=>$organismo_id))->find_all( );
+			foreach($contactos as $c)
+			{
+			  $data[$c->id]=$c->descripcion;
+			}
+			echo form::dropdown(array('id'=>'contacto_id','name'=>'contacto_id'),$data,0);
+		}
+		
+		public function nuevo( )
+		{
+			$content = new View('correspondencia/form');
+			$content->organismos   = $this->_get_organismos( );
+			$content->dependencias = $this->_get_dependencias( );
+			$this->wrapper->prototype = 1;
+			$this->wrapper->content = $content;
+			$this->wrapper->estilos = array('calendar');			
+			$this->wrapper->js = array('correspondencia','calendar');
+	    	$this->wrapper->render(TRUE);
+		}		
+
+		private function _cargar_info($id,&$content)
+		{
+			$corr = ORM::factory('correspondencia')->find($id); 
+			//-------------------------------------------------------
+			$content->id		 	 = $corr->id;
+			$content->fecha_recibido = $corr->fecha_recibido;
+			$content->fecha_oficio	 = $corr->fecha_oficio;
+			$content->nro_oficio	 = $corr->nro_oficio;
+			$content->suscrito		 = $corr->suscrito;
+			$content->organismo		 = $corr->contacto->organismo->descripcion;
+			$content->contacto		 = $corr->contacto->descripcion;
+			$content->archivo		 = $corr->archivo;
+			$content->asunto		 = $corr->asunto;
+		}
+		
+		private function _cargar_instrucciones($corr_id,&$content)
+		{
+			$data = array( );
+			if ($_SESSION['grupo_id'] == 1) $params = array('correspondencia_id'=>$corr_id);
+			//-----------------------------------------------------------------------------
+			$instrucciones = ORM::factory('corrinstruccion')->where($params)->find_all( );
+			foreach($instrucciones as $i)
+			{
+				$k = $i->instruccion->descripcion;
+				$data[$k] = array(
+										'id'			    => $i->id,
+										'descripcion'   => $i->instruccion->descripcion,
+										'observaciones' => $i->observaciones,
+									 );
+				if (isset($data[$k]['dependencias']))  
+				$data[$k]['dependencias'].=','.$i->dependencia->siglas;
+			}
+			//-----------------------------------------------------------------------------
+			$content->instrucciones = $data;
+		}
+
+		public function editar($id,$user_id)
+		{
+			$content = new View('correspondencia/tabs/tabs_corr');
+			$this->wrapper->content = $content;
+			$this->_cargar_info($id,$content);
+			$this->_cargar_instrucciones($id,$content);
+			$this->wrapper->prototype = 1;
+			$this->wrapper->estilos = array('tabs');			
+			$this->wrapper->js = array('correspondencia_tabs','tabs');
+	    	$this->wrapper->render(TRUE);
+		}
+
+		/*public function editar($id,$user_id)
+		{
+			$content = new View('correspondencia/form');
+			$corr = ORM::factory('correspondencia')->find($id);
+			$content->id 					= $corr->id;
+			$content->fecha_recibido   = $corr->fecha_recibido;
+			$content->fecha_oficio     = $corr->fecha_oficio;
+			$content->nro_oficio       = $corr->nro_oficio;
+			//$content->direccion      = $corr->descripcion;
+			$content->organismos			= $this->_get_organismos( );
+			$content->dependencias	   = $this->_get_dependencias( );
+			$content->asunto           = $corr->asunto;
+			$this->wrapper->content    = $content;
+			$this->wrapper->render(TRUE);
+		}*/
+		
+		public function guardar($id=FALSE)
+		{
+			extract($_POST);
+			// $id 				 	 = $_POST['id'];
+			// $descripcion  = $_POST['descripcion'];
+			// $siglas			 = $_POST['siglas']
+
+			/* si el id es falso significa que es un registro nuevo */
+			if ($id==FALSE) $corr = ORM::factory('correspondencia',FALSE);
+			/* de lo contrario se va actualizar un registro */
+			else $corr = ORM::factory('correspondencia')->find($id);
+			$corr->fecha_recibido   = $fecha_recibido;
+			$corr->fecha_oficio     = $fecha_oficio;
+			$corr->nro_oficio       = $nro_oficio;
+			$corr->asunto	        = $asunto;
+			$corr->suscrito         = $suscrito;
+			$corr->contacto_id      = $contacto_id;
+			$corr->dependencia_id   = $dependencia_id;
+			$corr->save( );
+			//------------------------------------------
+			$this->session->set_flash('msj','Registro Guardado');
+			url::redirect('correspondencia');
+		}
+	
+		// REST
+
+
+		public function add_instruccion( )
+		{
+			$item = $_POST['item'];
+			$tt = new View('correspondencia/tabs/admin/linea_instruccion');
+			$tt->dependencias  = $this->_get_dependencias( );
+			$tt->instrucciones = $this->_get_instrucciones( );
+			$tt->item = $item;
+			$tt->render(TRUE);
+		}
+
+		public function adjuntar( )
+		{
+			$adj = $_POST['adj'];
+			$tt = new View('correspondencia/tabs/director/linea_upload');
+			$tt->adj = $adj;
+			$tt->render(TRUE);
+		}
+
+		public function eliminar($id)
+		{
+			$corr = ORM::factory('correspondencia')->find($id);
+			$corr->delete( );
+			//-------------------------------------------
+			$this->session->set_flash('msj','Registro Eliminado');
+			url::redirect('correspondencia');
+      }
+
+}
+// End Login

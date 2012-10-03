@@ -1,0 +1,418 @@
+<?php
+
+	// cargar las librerias	
+	require Kohana::find_file('vendor','mc_table');
+	define('FPDF_FONTPATH', APPPATH . 'font-pdf/');
+	
+	class Imprimir_controller extends Controller 
+  {
+		
+		/*public function index( ){ echo APPPATH.'font-pdf/'; }*/
+
+		public function __construct( )
+		{
+			$this->db = Database::instance( );
+			parent::__construct( );
+			$this->session				= 	Session::instance( );
+			$this->UtilsRepContIng 		= 	new UtilsRepContIng( );
+			$this->UtilsRepGenSeplan 	= 	new UtilsRepGenSeplan( );
+			$this->DiasMeses			=	new DiasMeses();
+		}
+		
+		private function _excel_general( $ids )
+		{
+			$excel = new ExcelReporte( );
+			$excel->render('general',$ids);
+		}
+		
+		private function _pdf_general( $ids )
+		{
+			$fields = array(
+									'numero',
+									'descripcion',
+									'fecha_firma',
+									'monto_contratado',
+									'contratista',
+									'monto_ejecutado',
+									'porc_ejec_fisica',
+									'porc_ejec_financiera',
+									'status',
+									'periodo_presupuesto',
+									'porc_ejecu_hist',
+									'validacion_resincion'
+									);
+			$this->db->from('vista_general')->select($fields);			
+			$this->db->in('contrato_id',explode(',',$ids));
+			$rs = $this->db->get( );
+			$data;
+			foreach ($rs as $r)
+			{
+				foreach($fields as $k)
+				{
+					$row[$k] = $r->$k;
+				}
+				if($r->periodo_presupuesto<=2010){
+					$row['porc_ejec_fisica'] = $r->porc_ejecu_hist;
+				}
+				if($r->validacion_resincion==1){
+					$row['status']='Rescindido';
+				}
+				$data[] = $row;
+			}
+			$pdf  = new PDFGeneral('L','mm','A4');
+			$pdf->render($data);
+		}
+		
+		private function _excel_financiero( $ids )
+		{
+			// instancias la clase
+			$excel = new ExcelReporte( );
+			// si quieres pasarle los ids del contrato
+			//$excel->render('general',array(5,8,10));
+			// si quieres que te traiga toda la data de la vista
+			$excel->render('financiero',$ids);
+			// OJO: solo tienes 2 opciones que son las vistas ("financiero" y "general") escribelas tal cual
+		}
+		
+		private function _pdf_control_inspector($ids)
+		{
+			$data=$this->UtilsRepContIng->get_data($ids);
+			$pdf  = new PDFFControlInspector('L','mm','A4');
+			$pdf->render($data);
+		}
+		
+		private function _pdf_financiero( $ids )
+		{
+			$fields = array(	
+												'numero',
+												'descripcion',
+												'monto_presupuesto',
+												'fecha_firma',
+												'monto_contratado',
+												'monto_anticipo',
+												'monto_contrato_modificado',
+												'monto_ejecutado',
+												'porc_ejec_fisica',
+												'status',
+												'porcen_ejecucion',
+												'periodo_presupuesto',
+												'porc_ejecu_hist',
+												'validacion_resincion'
+											);
+			//echo "select ".implode(',',$fields)." from vista_financiero where contrato_id in(".$_POST['id'].")";
+			//die();
+			//$rs=$db->query("select ".implode(',',$fields)." from vista_financiero where contrato_id in(".$_POST['id'].")");
+			$this->db->from('vista_general')->select($fields);			
+			$this->db->in('contrato_id',explode(',',$ids));
+			$rs = $this->db->get( );
+			$data;
+			foreach ($rs as $r)
+			{
+				foreach($fields as $k)
+				{
+					$row[$k] = $r->$k;
+				}
+				if($r->periodo_presupuesto<=2010){
+					$row['porc_ejec_fisica'] = $r->porc_ejecu_hist;
+				}
+				if($r->validacion_resincion==1){
+					$row['status']='Rescindido';
+				}
+				$data[] = $row;
+			}
+			$pdf  = new PDFFinanciero('L','mm','A4');
+			$pdf->render($data);
+		}
+		
+		private function _pdf_obra_listado( $ids )
+		{
+			$fields = array(	
+												'id',
+												'numero',
+												'nombre',
+												'municipio',
+												'parroquia',
+												'unidad_ejecutora',
+												'trimestre',
+												'monto_total'
+											);
+			//echo "select ".implode(',',$fields)." from vista_financiero where contrato_id in(".$_POST['id'].")";
+			//die();
+			//$rs=$db->query("select ".implode(',',$fields)." from vista_financiero where contrato_id in(".$_POST['id'].")");
+			$this->db->from('vista_listado_obra')->select($fields);			
+			$this->db->in('id',explode(',',$ids));
+			$rs = $this->db->get( );
+			$data;
+			foreach ($rs as $r)
+			{
+				foreach($fields as $k)
+				{
+					$row[$k] = $r->$k;
+				}	
+				$data[] = $row;
+			}
+			$pdf  = new PDFObraListado('L','mm','A4');
+			$pdf->render($data);
+		}
+		
+		public function print_control_inspector()
+		{
+			$this->_pdf_control_inspector($_POST['id']);
+		}
+		
+		public function print_financiero()
+		{
+			if($_POST['type']=='pdf'){
+				$this->_pdf_financiero($_POST['id']);
+			}
+			if($_POST['type']=='excel'){
+				$this->_excel_financiero(explode(',',$_POST['id']));
+			}
+		}
+		
+		public function print_general( )
+		{
+			if($_POST['type']=='pdf'){
+				$this->_pdf_general($_POST['id']);
+			}
+			if($_POST['type']=='excel'){
+				$this->_excel_general(explode(',',$_POST['id']));
+			}
+		}
+
+		public function print_ficha_contrato()
+		{
+				$pdf = new PDFFicha_contrato('P','mm','LETTER');
+				$pdf->render($_REQUEST['id']);
+		}
+		
+		public function print_rep_gen_sinfra()
+		{
+			$pdf = new PDFSeplanSinfra('L','mm','Legal','RELACIÓN  DE PROYECTOS DE INVERSIÓN');
+			$data=$this->UtilsRepGenSeplan->get_data_grid(
+														  explode(',',$_REQUEST['id']),
+														  $this->UtilsRepGenSeplan->get_trimestre(date('Y-m-d')),
+														  date('Y'));
+			$pdf->render($data);
+		}
+		public function print_rep_gen_seplan()
+		{
+			$financiadora=ORM::factory('financiadora')->find($_REQUEST['financiadora']);
+			$fecha=$this->DiasMeses->fecha_texto($this->UtilsRepGenSeplan->get_trimestre_mysql($_REQUEST['trimestre'],$_REQUEST['periodo'],TRUE));
+			$titulo="RELACIÓN  DE PROYECTOS DE INVERSIÓN FINANCIADOS CON RECURSOS ".$financiadora->siglas." PARA EL EJERCICIO FISCAL ".$_REQUEST['periodo']."\n DEL ESTADO CARABOBO\n AL ".$fecha['dia']." DE ".strtoupper($fecha['mes'])." DE ".$fecha['anio'];
+			$pdf = new PDFSeplanSinfra('L','mm','Legal',$titulo);			
+			$data=$this->UtilsRepGenSeplan->get_data_rep_seplan(
+														  $this->UtilsRepGenSeplan->get_trimestre_mysql($_REQUEST['trimestre'],$_REQUEST['periodo']),
+														  $_REQUEST['financiadora']
+														  );
+			$pdf->render($data,'seplan');
+		}
+		public function print_obra_listado( )
+		{
+			if($_POST['type']=='pdf'){
+				$this->_pdf_obra_listado($_POST['id']);
+			}			
+		}
+		
+		/*-----------------------------------------------*\
+		
+		DESDE AQUI SE IMPRIMEN LOS REPORTES
+		
+			1 - PDFActContrato
+			2 - PDFObrasSectorizadas
+			3 - PDFReporteInspector
+			4 - PDFReportePrensa
+	
+		\*-----------------------------------------------*/
+
+		public function print_act_contrato( )
+		{
+			$pdf  = new PDFActContrato('L','mm','A4');
+			$pdf->render($_POST['id']);
+		}
+		
+		public function obras_sectorizadas( )
+		{
+			// NOTA: se le deben pasar los parametros al constructor
+			// para que puedan salir bien los encabezados,
+			// porque el metodo <Head> en la libreria de FPDF
+			// es el que primero se llama antes que cualquier cosa
+			// excepto en el constructor.
+			$params = array('periodo'=> $_POST['periodo'],
+											'tipo'   => $_POST['tipo'	 ],
+											'valor'  => $_POST['filtro' ],
+											'corte'  => $_POST['corte'	 ]);
+			$pdf = new PDFObrasSectorizadas('L','mm','A4',$params);
+			$pdf->render($params);
+			//-------------------------------------------------
+			//echo kohana::debug($_POST);
+		}
+		
+		public function print_reporte_inspector( )
+		{
+			// NOTA: lo mismo sucede aca, se le debe pasar el parametro 
+			// al constructor asi que MOSCA.
+			$pdf  = new PDFReporteInspector('L','mm','A4', strtoupper($_POST['inspector_autocomplete_parameter']));
+			$pdf->render($_POST['id']);
+		}
+		
+		private function _get_data_prensa($ids)
+		{
+			$sql = "SELECT
+											contrato_id,
+											descripcion,
+											parroquia,
+											(SELECT monto_contratado * porc_iva) as monto_asignado,
+											financiadora,
+											infraestructura,
+											porc_ejec_fisica,
+											observacion,
+											porc_ejecu_hist,
+											periodo_presupuesto
+							FROM
+									vista_general v
+							WHERE
+									v.contrato_id IN (SELECT co.contrato_id FROM contratos_obras co) AND v.contrato_id IN ($ids) 
+									group by v.contrato_id 
+							ORDER BY v.descripcion ASC";
+
+			$db = $this->db->query($sql);
+			foreach ($db as $rs)
+			{
+				if($rs->periodo_presupuesto<=2010){
+					$porc_ejec_fisica = $rs->porc_ejecu_hist;
+				}else{
+					$porc_ejec_fisica = $rs->porc_ejec_fisica;
+				}
+				$data[ ] = array( 
+													'obra' 	  						=> $rs->descripcion,
+													'parroquia'						=> $rs->parroquia,
+													'monto_asignado'			=> $rs->monto_asignado,
+													'financiadora'			  => $rs->financiadora,
+													'tipo'								=> $rs->infraestructura,
+													'dependencia' 				=> 'SINFRA',
+													'porc_ejec_fisica'		=> $porc_ejec_fisica,
+													'observacion'					=> $rs->observacion
+												);
+			}
+			return $data;	
+		}
+
+		public function print_reporte_prensa( )
+		{
+			$data = $this->_get_data_prensa($_POST['id']);
+			if ($_POST['type']=='pdf')
+			{
+				$pdf  = new PDFReportePrensa('L','mm','A4');
+				$pdf->render($data);
+			}
+			if ($_POST['type']=='excel')
+			{
+					$excel = new CExcelReporte( );
+				$excel->render($data,'nota_prensa');
+			}
+		}
+
+		public function relacion_obra( $id,$id_director)
+		{
+			$pdf = new PDFRelacionObra('P','mm','A4',$id,$id_director);
+			$pdf->render( );
+		}
+
+
+		public function _relacion_obra($valuacion_id)
+		{
+			$i=0;
+			$valuacion = ORM::factory('valuacion',$valuacion_id);
+			//echo kohana::debug($valuacion); 
+			if ($valuacion->loaded==TRUE)
+			{
+			foreach ($valuacion->detalle_valuacion as $dv)
+			{
+				if ($dv->tipo == 'presu')
+				{
+					$presu = ORM::factory('presupuesto_obra',$dv->partida_obra_id);
+					$data[$i]['descripcion'] 			= $presu->partida_obra->descripcion;
+					$data[$i]['unidad_de_medida'] = $presu->partida_obra->unidad_de_medida;
+				}
+				else if ($dv->tipo == 'inf_eco')
+				{
+					$d_eco = ORM::factory('detalle_informe_economico',$dv->partida_obra_id);
+					if ($d_eco->loaded) 
+					{
+						/*foreach ($in->detalle_informe_economico as $d_eco)*/
+						if ($d_eco->tipo == 'presu')
+						{
+							$presu = ORM::factory('presupuesto_obra',$d_eco->partida_obra_id);
+							$data[$i]['descripcion'] 			= $presu->partida_obra->descripcion;
+							$data[$i]['unidad_de_medida'] = $presu->partida_obra->unidad_de_medida;
+						}
+						else if ($d_eco->tipo == 'recon')
+						{
+							$drp = ORM::factory('detalle_reconsideracion_precio',$d_eco->partida_obra_id);
+							if ($drp->tipo == 'obra_adicional')
+							{
+								$partida_obra = ORM::factory('partida_obra',$drp->partida_obra_id);
+								$data[$i]['descripcion'] = $partida_obra->descripcion;
+								$data[$i]['unidad_de_medida'] = $presu->partida_obra->unidad_de_medida;
+							}
+							else if ($drp->tipo=='presupuesto')
+							{	
+								$presu = ORM::factory('presupuesto_obra',$drp->partida_obra_id);
+								$data[$i]['descripcion'] 			= $presu->partida_obra->descripcion;
+								$data[$i]['unidad_de_medida'] = $presu->partida_obra->unidad_de_medida;
+							}
+						}
+					}
+				}
+				$data[$i]['detalle_valuacion_id'] = $dv->id;
+				$data[$i]['precio_unitario'] 			= $dv->precio_unitario;
+				$data[$i]['cantidad'] 			 			= $dv->cantidad;
+				$data[$i]['monto'] 			 		 			= $dv->monto;
+				$i++;
+			}
+			echo kohana::debug($data);
+			}
+		}
+		
+		private function _get_rrhh_name($id){
+			$orm=ORM::factory('rrhh')->find($id);
+			return $orm;
+		}
+		
+		public function demo_obra($id,$id_dd,$id_dg )
+		{
+			$pdf = new PDFDemoPObra('L','mm','legal',$id);
+			$pdf->AliasNbPages( ); //--> TOTALMENTE NECESARIO
+			// datos que faltan --------------------------------------
+			$jefe=$this->_get_rrhh_name($id_dd);
+			$direc=$this->_get_rrhh_name($id_dg);
+			$data = array( 
+										'jefe_departamento'			=> $jefe->nombre.' '.$jefe->apellido,
+										'civ_jefe_departamento' 	=> $jefe->civ,
+										'director_sinfra'  			=> $direc->nombre.' '.$direc->apellido,
+										'civ_director_sinfra'		=> $direc->civ
+									 );
+			//---------------------------------------------------------
+			//die();
+			$pdf->render($data);
+		}
+		
+		public function relacion_ie($contrato_id/*,$fecha $id_dd,$id_dg*/)
+		{
+			$pdf = new PDFRelacionIE('L','mm','legal',$contrato_id,'2012-01-09');
+			$pdf->AliasNbPages( ); //--> TOTALMENTE NECESARIO
+			//$jefe=$this->_get_rrhh_name($id_dd);
+			//$direc=$this->_get_rrhh_name($id_dg);
+			$data = array( 
+										'jefe_departamento'			=> 'Francisco Lopez', /* $jefe->nombre.' '.$jefe->apellido,*/
+										'civ_jefe_departamento' => 'Juan Perez', /* $jefe->civ,*/
+										'director_sinfra'  			=> 'Ramon Camacho', /*$direc->nombre.' '.$direc->apellido,*/
+										'civ_director_sinfra'		=> 'Gualberto Torrez' /*$direc->civ*/
+									 );
+			$pdf->render($data);
+		}
+
+	}
+
+?>

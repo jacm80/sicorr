@@ -11,9 +11,9 @@
 	<tbody id="adjuntos">
       <?php if (count($adjuntos)>0): ?>
          <?php foreach($adjuntos as $a): ?>
-		   <tr style="background: <?php echo $a['color']; ?>;">
+		   <tr style="background-color: #<?php echo $a['color']; ?>;">
 			   <td><?php echo $a['no']; ?></td>
-			   <td><?php echo (!empty($a['archivo'])) ? html::anchor("media/upload/directores/{$a['user_id']}/{$a['archivo']}",$a['archivo']) 
+			   <td><?php echo (!empty($a['archivo'])) ? html::anchor("media/upload/directores/{$a['grupo_id']}/{$a['archivo']}",$a['archivo']) 
                                                                                     : "<strong style='color:green'>Mensaje</strong>";  ?></td>
 			   <td><?php echo $a['director']; ?></td>
 			   <td><?php echo $a['siglas'];   ?></td>

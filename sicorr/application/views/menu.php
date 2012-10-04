@@ -30,7 +30,13 @@
 					<ul>
                	<li><a href="<?php echo url::base( ); ?>usuario">Usuarios del Sistema</a></li>
                	<li><a href="<?php echo url::base( ); ?>bitacora">Bitacora del Sistema</a></li>
-					</ul>
+               </ul>
+               <li><a href="#" ?>Historico</a>
+                        <ul>
+               	         <li><a href="<?php echo url::base( ); ?>media/upload/correspondencias">Correspondencia cargadas</a></li>
+               	         <li><a href="<?php echo url::base( ); ?>media/upload/directores">Adjuntos de Directores</a></li>
+                        </ul>
+                  </li>
 				</li>
 				<?php endif; ?>
 			<?php endif; ?>

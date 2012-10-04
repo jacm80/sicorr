@@ -1,4 +1,3 @@
-<?php $RUTA = "media/upload/directores/$dependencia_id"; ?>
 <table class="grid" style="width:100%;">
 	<thead>
 		<tr>
@@ -14,11 +13,14 @@
          $i=1; 
       ?>
       <?php foreach ($adjuntos as $aa): ?>
+      <?php $RUTA = "media/upload/directores/$dependencia_id"; ?>
 		<tr
          <?php if ($i % 2 == 0) echo ' class="tr_verde"'?>
          id="adj_<?php echo $aa['adjunto_id']; ?>" >
 			<td><?php echo $i; ?></td>
-			<td><?php echo $aa['archivo'] ? html::anchor("$RUTA/{$aa['archivo']}",$aa['archivo'],array('alt'=>'imagen','id'=>$aa['archivo'])) : 'mensaje' ; ?></td>
+			<td>
+            <?php echo $aa['archivo'] ? html::anchor("$RUTA/{$aa['archivo']}",$aa['archivo'],array('alt'=>'imagen','id'=>$aa['archivo'])) : 'mensaje' ; ?>
+         </td>
 			<td><?php echo $aa['mensaje']; ?></td>
 			<td><?php echo $aa['estatus']; ?></td>
          <td style="text-align:center;">

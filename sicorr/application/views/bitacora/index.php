@@ -10,6 +10,10 @@ function vaciar_bitacora( ){
 </script>
 
 <h3 style="display:block; text-align:center;">Bitacora del Sistema</h3>
+
+<?php include 'auditoria.php'; ?>
+
+<br />
 <table class="grid">
 	<thead>
 		<th>id</th>
@@ -17,7 +21,7 @@ function vaciar_bitacora( ){
 		<th>Fecha y Hora</th>
 		<th>Usuario</th>
 	</thead>
-	<tbody>
+	<tbody id="table_data">
 		<?php $i=0; ?>
 		<?php foreach ($bitacora as $b):?>
 			<tr
@@ -36,4 +40,6 @@ function vaciar_bitacora( ){
 </table>
 <br />
 <div style="text-align:center;"><button 
-onclick="vaciar_bitacora( );">Vaciar la informacion de la Bitacora</button></div>
+onclick="vaciar_bitacora( );">
+<?php echo html::image('media/images/delete.gif'); ?>
+&nbsp;Vaciar informacion de la Bitacora</button></div>

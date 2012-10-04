@@ -48,7 +48,7 @@
       <?php echo html::image('media/images/edit.gif');?>&nbsp;Editar Informaci&oacute;n</button>
    </div>
 <?php else: ?>
-   <?php if ($canChange): ?>
+   <?php if (($_SESSION['grupo_id']==2) AND ($canChange)): ?>
     <div style="text-align:center;">
       <button onclick="location.href=base_url+'correspondencia/editar_info/<?php echo $id;?>'">
       <?php echo html::image('media/images/edit.gif');?>&nbsp;Editar Informaci&oacute;n</button>

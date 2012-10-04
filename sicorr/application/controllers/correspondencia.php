@@ -187,14 +187,19 @@
       private function _cargar_adjuntos($corr_id,&$content)
       {
 		   $data = array( ); $n=1;
-			//if ($_SESSION['grupo_id'] == 1) 
-         $params = array('correspondencia_id'=>$corr_id,'usuario_id'=>$_SESSION['user_id']);
+			if ($_SESSION['grupo_id'] == 1) 
+         {
+            $params = array('correspondencia_id'=>$corr_id);
+         }
+         else {
+            $params = array('correspondencia_id'=>$corr_id,'usuario_id'=>$_SESSION['user_id']);
+         }
          $adjuntos = ORM::factory('adjunto')->where($params)->find_all( );
-         $dep = ORM::factory('dependencia')->where(array('usuario_id'=>$_SESSION['user_id']))->find( );
-         $content->dependencia_id = $dep->id;
          
          foreach ($adjuntos as $a)
          {
+            $dep = ORM::factory('dependencia')->where(array('usuario_id'=>$a->usuario_id))->find( );
+            $content->dependencia_id = $dep->id;
             $data[ ] = array(
                'no'           => $n,      
                'adjunto_id'   => $a->id,
@@ -210,6 +215,7 @@
             );
             $n++;
          }
+         //echo kohana::debug($data);
          $content->adjuntos = $data;
          return $n;
       }      

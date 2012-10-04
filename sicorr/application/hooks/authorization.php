@@ -28,7 +28,7 @@
                   'usuario'         =>array('index','nuevo','editar','guardar','eliminar'),
                   'denegado'        =>array('index'),
                   'login'           =>array('index','login','logout'),
-                  'bitacora'        =>array('index','vaciar_bitacora')
+                  'bitacora'        =>array('index','filtrar','vaciar_bitacora')
                ),
                // Director
                '2'=>array(

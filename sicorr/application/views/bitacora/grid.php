@@ -1,3 +1,4 @@
+<?php if (count($bitacora)>0): ?>
 <?php $i=0; ?>
 	<?php foreach ($bitacora as $b):?>
 	<tr
@@ -12,3 +13,8 @@
 	</tr>
 	<?php $i++; ?>
 <?php endforeach ?>
+<?php else: ?>
+   <tr>
+      <td colspan="4" style="text-align:center;">No hay registros.</td>
+   </tr>
+<?php endif; ?>

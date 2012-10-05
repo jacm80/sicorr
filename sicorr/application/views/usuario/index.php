@@ -25,7 +25,8 @@
 							<?php echo html::image('media/images/edit.gif',array('alt'=>'Editar', 'title'=>'Editar')); ?></a>
 							&nbsp;
 						<a href="<?php echo url::base( )?>usuario/eliminar/<?php echo $o->id; ?>" />
-							<?php echo html::image('media/images/delete.gif',array('alt'=>'Eliminar', 'title'=>'Eliminar')); ?></a>
+							<?php echo html::image('media/images/delete.gif',
+                        array('alt'=>'Eliminar', 'title'=>'Eliminar','onclick'=>"if (!confirm('Esta realmente seguro?')) return false;")); ?></a>
 				</td>
 			</tr>
 		<?php $i++; ?>

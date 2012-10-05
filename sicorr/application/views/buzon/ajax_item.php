@@ -5,18 +5,15 @@
 							'En Proceso' => array('ico' => 'carga_director.png',	'color'=>'#bbeae7'),
 							'Procesado'	 => array('ico' => 'procesado2.png'		,	'color'=>'#85bf87')
 						 );  
-
-//echo kohana::debug($buzon);
-//echo $_SESSION['user_id'];
 ?> 
+
+<?php if (count($buzon)>0): ?>
 <?php foreach($buzon as $b): ?>
 <tr onmouseover="$('item<?php echo $i; ?>').style.backgroundColor='#ffff82';" 
 	 onmouseout="$('item<?php echo $i; ?>').style.backgroundColor='<?php echo $profile[$b['estatus']]['color'];  ?>';" 
 	 id="item<?php echo $i; ?>"
 	 style="background-color:<?php echo $profile[$b['estatus']]['color']; ?>;"
 	>
-   <!--<td>< #php echo $b['id']; ></td>-->
-
    <?php if  ($_SESSION['grupo_id']==2): ?>
       <!-- -->
       <?php if ($b['revisar']==1): ?>
@@ -31,7 +28,6 @@
       <td><?php echo $b['id']; ?></td>
       <td><?php echo html::image('media/images/email_go.gif'); ?></td>
    <?php endif ?>
-
    <td><?php echo $b['fecha_recibido']; ?></td>
 	<td><?php echo (!empty($b['archivo'])) ? html::image('media/images/attachment16.png') : '&nbsp;' ?>&nbsp;
        <?php 
@@ -60,27 +56,11 @@
          <?php endforeach; ?>
       <?php endforeach; ?>
    </td>
-	<?php if (count($b['adjuntos'])>0):  ?>
-				<!--<tr>-->
-               <td>
-                  <a href="" onclick="cambiar_estatus_adjuntos('<?php echo $b['id']; ?>','<?php echo $_SESSION['user_id']; ?>'); 
-                                      $('R_adj_<?php echo $i; ?>').show( );  
-                                      Effect.SlideDown('adj_<?php echo $i; ?>'); 
-                                      return false;">
-               <?php echo html::image('media/images/lupa.png'); ?></a>
-               </td>
-				</tr>
-				<tr id="R_adj_<?php echo $i; ?>" style="display:none;">
-				   <td colspan="9">
-				      <?php $aj=1; ?>
-					   <div id="adj_<?php echo $i; ?>" style="display:none;margin:0 auto;">
-                     <?php include 'adjuntos.php'; ?>
-                  </div>
-				   </td>
-				</tr>
-	<?php else: ?>
-		   <td>&nbsp;</td>
-		</tr>
-	<?php endif; ?>
+   <?php include 'adjuntos.php'; ?>
 	<?php $i++; ?>
 <?php endforeach; ?>
+<?php else: ?>
+   <tr>
+      <td colspan="8" style="text-align:center;">No hay correspondencias</td>
+   </tr>
+<?php endif; ?>

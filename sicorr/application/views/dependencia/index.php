@@ -10,6 +10,7 @@
 		<th>Accion</th>		
 	</thead>
 	<tbody>
+      <?php if (count($dependencias)>0): ?>
 		<?php $i=0; ?>
 		<?php foreach ($dependencias as $d):?>
 			<tr style='background-color:<?php echo $d['color'];?>'>
@@ -23,11 +24,17 @@
 						<?php if ($_SESSION['grupo_id']==1): ?>
 							&nbsp;			
 							<a href="<?php echo url::base( )?>dependencia/eliminar/<?php echo $d['id']; ?>" />
-							<?php echo html::image('media/images/delete.gif',array('alt'=>'Eliminar', 'title'=>'Eliminar')); ?></a>
+							<?php echo html::image('media/images/delete.gif',
+                              array('alt'=>'Eliminar','title'=>'Eliminar','onclick'=>"if (!confirm('Esta realmente seguro?')) return false;")); ?></a>
 						<?php endif; ?>	
 				</td>
 			</tr>
 		<?php $i++; ?>
 		<?php endforeach ?>
+      <?php else: ?>
+         <tr>
+            <td colspan="6" style="text-align:center;">No hay registros.</td>
+         </tr>
+      <?php endif; ?>
 	</tbody>
 </table>

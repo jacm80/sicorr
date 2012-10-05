@@ -49,6 +49,7 @@
 
       private function _get_dependencias( )
       {
+       $data = array();
 		 $dependencias = ORM::factory ('dependencia')->find_all( );
 		 foreach ($dependencias as $d) $data[ ] = array('id'=>$d->id,'siglas'=>$d->siglas,'direccion'=>$d->direccion);
 		 return $data;

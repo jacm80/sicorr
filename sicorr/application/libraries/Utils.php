@@ -7,6 +7,17 @@
         return substr(strrchr($filename, '.'), 1); 
       }
 
+      function dropdown_estatus_adjuntos( )
+      {
+			$estatusadjuntos = ORM::factory('estatus_adjunto')->find_all( );
+         $estatus_adjuntos=array();
+         foreach($estatusadjuntos as $ea)
+         {
+            $estatus_adjuntos[$ea->id] = $ea->descripcion;
+         }
+         return $estatus_adjuntos;
+      }
+
       function cargar_instrucciones($corr_id,&$content=FALSE)
 		{
 			$data = array( );

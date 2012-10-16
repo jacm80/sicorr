@@ -14,6 +14,7 @@
 		/*----------------------------------*/
 		public function index( )
 		{
+         if (isset($_SESSION['grupo_id'])) $this->logout( );
 			$content = new View('login/index');
 			$this->wrapper->prototype = 1;
 			$this->wrapper->js = array('login');
@@ -36,7 +37,10 @@
 				$this->session->set('user_grupo',$user->grupo->descripcion);
             Utils::guardar_bitacora('Login del Sistema');
 				if ( $_SESSION['grupo_id'] < 3 ) url::redirect('buzon');
-				else url::redirect('correspondencia/nuevo');
+            
+				else if ($_SESSION['grupo_id']==4) url::redirect('corporativa');
+
+            else url::redirect('correspondencia/nuevo');
 			}
 			else 
 			{

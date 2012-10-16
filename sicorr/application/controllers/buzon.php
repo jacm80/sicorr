@@ -24,7 +24,14 @@
          if (!isset($_SESSION['user_id'])) url::redirect('login/index');
 			$i = 0;
 			$buzon = array( ); 
-			$corr = ORM::factory('correspondencia')->where(array('inactivo'=>0))->order_by('id','DESC')->find_all( );
+         
+         // busquedas segun los perfiles de usuario
+         $params[1] = array('para_corporativa'=>0);
+         $params[2] = array('enviada'=>0);
+         $params[3] = array('enviada'=>0);
+         $params[4] = array('enviada'=>0);
+
+			$corr = ORM::factory('correspondencia')->where($params[$_SESSION['grupo_id']])->order_by('id','DESC')->find_all( );
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			foreach($corr as $c)
 			{
@@ -43,19 +50,10 @@
 										);
 				//---------------------------------------------------------------------------------------------------------
             $buzon[$i]['instrucciones'] = Utils::cargar_instrucciones($c->id);	    	
-            //---------------------------------------------------------------------------------------------------------
-				
+            //---------------------------------------------------------------------------------------------------------	
 				$adjuntos = ORM::factory('adjunto')->where(array('correspondencia_id'=>$c->id))->find_all( );
-				$estatusadjuntos = ORM::factory('estatus_adjunto')->find_all( );
-            
-            $estatus_adjuntos=array();
-            
-            foreach($estatusadjuntos as $ea)
-            {
-               $estatus_adjuntos[$ea->id] = $ea->descripcion;
-            }
-
-
+			
+        
             foreach ($adjuntos as $ad)
 				{
                $ultima_revision  = $ad->ultima_revision;
@@ -79,7 +77,7 @@
                                     'respuesta'       => $ad->respuesta,
                                     'estatus_id'      => $ad->estatus_adjunto_id,
                                     'estatus_desc'    => $ad->estatus_adjunto->descripcion,
-                                    'estatus_adjuntos'=> $estatus_adjuntos
+                                    'estatus_adjuntos'=> Utils::dropdown_estatus_adjuntos()
 											);
 					if      ($_SESSION['grupo_id']==1) 					  $buzon[$i]['adjuntos'][ ] = $h_adjunto;
 					else if ($_SESSION['user_id'] == $ad->usuario_id) $buzon[$i]['adjuntos'][ ] = $h_adjunto;				

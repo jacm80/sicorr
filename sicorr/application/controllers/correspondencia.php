@@ -202,15 +202,18 @@
             $dep = ORM::factory('dependencia')->where(array('usuario_id'=>$a->usuario_id))->find( );
             $content->dependencia_id = $dep->id;
             $data[ ] = array(
-               'no'           => $n,      
-               'adjunto_id'   => $a->id,
-               'archivo'      => $a->archivo,
-               'mensaje'      => $a->mensaje,
-               'respuesta'    => $a->respuesta,
-               'director'     => $a->usuario->nombres . " " . $a->usuario->apellidos,
-               'estatus'      => $a->estatus_adjunto->descripcion,
-               'color'        => $dep->color,
-               'siglas'       => $dep->siglas,
+               'no'              => $n,      
+               'adjunto_id'      => $a->id,
+               'archivo'         => $a->archivo,
+               'mensaje'         => $a->mensaje,
+               'respuesta'       => $a->respuesta,
+               'director'        => $a->usuario->nombres . " " . $a->usuario->apellidos,
+               'estatus'         => $a->estatus_adjunto->descripcion,
+               'color'           => $dep->color,
+               'siglas'          => $dep->siglas,
+               'estatus_desc'    => $a->estatus_adjunto->descripcion,
+               'estatus_id'      => $a->estatus_adjunto_id,
+               'estatus_adjuntos'=> Utils::dropdown_estatus_adjuntos(),
                //---------------------------------------------------------------------
                'grupo_id'     => $dep->usuario->grupo_id
             );
@@ -433,9 +436,38 @@
       public function cerrar_proceso($id)
       {
          $corr = ORM::factory('correspondencia')->find($id);
-         $corr->inactivo = 1;
+         $corr->para_corporativa = 1;
          $corr->save( );
          url::redirect('buzon');
+      }
+
+      /*   SEGUIMIENTO DE CORRESPONDENCIAS PROCESADAS  */
+      public function procesadas( )
+      {
+        $content = new View('correspondencia/procesadas/index');
+		  $corres  = ORM::factory('correspondencia')
+                                          ->where(array('para_corporativa'=>1))
+                                          ->find_all( );
+         /*----------------------------------------------------------------*/
+         $data = array( );
+         foreach($corres as $c)
+         {
+            $data[ ] = array(
+                              'id'             => $c->id,
+                              'fecha_recibido' => $c->fecha_recibido,
+                              'fecha_oficio'   => $c->fecha_oficio,
+                              'nro_oficio'     => $c->nro_oficio,
+                              'asunto'         => $c->asunto,
+                              'contacto'       => $c->contacto->descripcion,
+                              'suscrito'       => $c->suscrito,
+                              'motivo_corporativa'=>$c->motivo_corporativa
+                            );
+         }
+         /*----------------------------------------------------------------*/
+			$content->correspondencias = $data;
+			$this->wrapper->content    = $content;
+			$this->wrapper->render(TRUE);
+ 
       }
 
 }

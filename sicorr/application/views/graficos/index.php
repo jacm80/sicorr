@@ -2,11 +2,8 @@
 <script type="text/javascript">
       var chart;
 		var TITLE_GRAPHS='Porcentaje Estado de las Correspondencias';
-      var chartData =[
-                        { "item":"Nuevas"     ,"nuevas":"100"      },
-                        { "item":"Pendientes" ,"pendientes":"200"  },
-                        { "item":"Respondidas","enviadas":"150"    }
-                     ];
+      var chartData = <?php echo $grafico; ?>
+
 			AmCharts.ready(function () {
                // SERIAL CHART
                 chart = new AmCharts.AmSerialChart();
@@ -57,9 +54,9 @@
 				// second graph
             var graph3 = new AmCharts.AmGraph();
                 graph3.type = "column";
-                graph3.title = "Enviadas";
-                graph3.valueField = "enviadas";
-                graph3.balloonText = "Enviadas: [[value]]"+' Correspondencias.';
+                graph3.title = "Respondidas";
+                graph3.valueField = "respondidas";
+                graph3.balloonText = "respondidas: [[value]]"+' Correspondencias.';
                 graph3.lineAlpha = 0;
                 graph3.fillColors = "#C0504D";
                 graph3.fillAlphas = 1;

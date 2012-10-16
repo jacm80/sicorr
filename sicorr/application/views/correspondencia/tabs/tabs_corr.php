@@ -5,7 +5,7 @@
 
 		<div id="btnfinalizado">
 			<?php echo html::image('media/images/email_go.gif'); ?>
-			<a href="<?php echo url::base( );?>correspondencia/cerrar_proceso/<?php echo $id ?>"><strong>Finalizar Proceso</strong></a>
+			<a href="<?php echo url::base( );?>correspondencia/cerrar_proceso/<?php echo $id ?>"><strong>PARA CORPORATIVA</strong></a>
 		</div>
 	</div>
 <?php endif; ?>

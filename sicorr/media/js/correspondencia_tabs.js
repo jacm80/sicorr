@@ -1,6 +1,15 @@
 //var item = 1;
 //var adj  = 1;
 
+function cambiar_estatus(el_id,estatus) {
+   new Ajax.Request(base_url + 'buzon/cambiar_estatus_adjunto',
+                     {
+                        method:'post',
+                        parameters: { 'xid':el_id,'estatus_id':estatus },
+                        onSuccess: function( ) { alert('Estado Cambiado'); }
+                     });
+}
+
 //----------------------------------------------------------------------------
 // Perfil Director 
 //----------------------------------------------------------------------------

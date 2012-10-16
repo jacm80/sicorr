@@ -1,4 +1,5 @@
 //
+
 Event.observe(window,'load',function( ){
   	   calendar.set('fecha_recibido');
   	   calendar.set('fecha_oficio');
@@ -13,11 +14,11 @@ Event.observe(window,'load',function( ){
 				);
   		});
 
-      Event.observe('aceptar','click',function( ) {
-			$("frmupload").submit( );
-      });
+      Event.observe('aceptar','click',function( ) { $("frmupload").submit( ); });
 
  	});
+
+
 
 /*
 

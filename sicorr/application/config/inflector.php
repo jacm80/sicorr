@@ -4,7 +4,8 @@
 	(
 		'menu'           => 'menu',
 	  	'corrinstruccion'=> 'corrinstruccion',
-      'bitacora'       => 'bitacora'
+      'bitacora'       => 'bitacora',
+      'graficos'       => 'graficos'
 	);
  
 	$config['irregular'] = array

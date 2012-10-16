@@ -15,7 +15,7 @@
       <thead>
 	   <!-- BEGIN 1 FILA -->
       <tr>
-		   <th colspan="7" style="background-color:#b5ccdf;color:#1378b2;">
+		   <th colspan="8" style="background-color:#b5ccdf;color:#1378b2;">
 			ARCHIVOS ADJUNTOS&nbsp;<a onclick=" $('R_adj_<?php echo $i; ?>').hide( ); return false;">
                                  <?php echo html::image('media/images/lupa_menos.gif'); ?></a>
 		   </th>
@@ -31,6 +31,7 @@
 		      <th>Respuesta</th>
          <?php endif; ?>
 		      <th>Documento</th>
+            <th>&nbsp;</th>
          <?php if ($_SESSION['grupo_id']==1): ?>
 		      <th>Director</th>
 		      <th>Direccion</th>
@@ -39,7 +40,7 @@
             <th>Respuesta</th>
          <?php endif?>
          <th style="width:10%">Estatus</th>
-         <th><a href="">&nbsp;</a></th>
+         <!-- <th><a href="">&nbsp;</a></th> -->
       </tr>
 	   <!-- END 2 FILA -->
       </thead>
@@ -51,6 +52,7 @@
 		<td>
 			<?php if (!empty($a['archivo'])): ?>
 					<?php echo html::anchor("media/upload/directores/{$a['dependencia_id']}/{$a['archivo']}",$a['archivo']); ?>
+               <!-- <td><input type="checkbox" value="1" id="r_<  # echo $a['archivo']>"/></td> -->
 			<?php else: ?>
 					<?php echo "<strong style='color:green'>Mensaje</strong>"; ?>
 			<?php endif; ?>

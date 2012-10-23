@@ -1,0 +1,73 @@
+Sistema de Control de Correspondencia (SICORR 1.0)
+================================================================================
+
+Realizado en la Contraloria del Estado Barinas
+en la direccion tecnica, planificacion y control de gestion
+
+Programador:
+Juan A. Canepa
+
+Diseñador de procesos:
+Juan C. Aranguibel
+
+
+Version 1.0 Beta
+================================================================================
+
+Sistema desarrollado bajo el framework kohana 2.x
+y la base de datos mysql-server 5.1
+
+Requerimientos de Software
+
+PHP 5.x
+MysqlServer 5.1
+apache 2.x
+apache modrewrite activo
+
+y por supuesto los requerimientos de kohana 2.x, los pueden ver renombrando
+el archivo "xinstall.php" a "install.php" que esta en la carpeta sicorr
+ya que es un archivo que viene con el framework para ver si el sistema cumple
+con los requisitos de kohana para funcionar, una vez hecho esto vuelva a colocar 
+el archivo "xinstall".
+
+=================================================================================
+Instalacion
+
+Se baja el zip del repositorio de githud, y se coloca en el directorio de publicacion
+de apache:
+
+linux: /var/wwww
+windows: c:\xampp\htdocs en caso de usar xampp
+
+
+En la carpeta sicorr/config estan los archivos de configuracion que usa el 
+framework, y 
+   - En la carpeta sicorr/SQL esta el script para generar la base de 
+     datos
+   - En la carpeta sicorr/config esta el archivo database.php, es aqui donde
+     se fijan los parametros de la conexion (user,password,database), 
+     recuerde nombrar la base de datos tal cual como aparace en el parametro
+     database, y si el servidor de mysql no esta usando password dejelo en 
+     blanco (no recomendado)
+
+- Para entrar al sistema seria con el siguiente url: http://localhost/sicorr
+
+Usuarios
+
+Login          Grupo             Password
+administrador  administrador     123
+operador       operador          123
+tecnica        director          123
+oac            director          123
+
+
+El sistema se basa en varios perfiles de usuarios
+de los cuales el operador carga la correspondencia y sube el archivo
+al servidor, el administrador lo ve y carga las intrucciones y se lo
+remite a los directores, los directores le hacen llegar un oficio 
+al administrador, este lo ve y lo aprueba y lo remite a corporativa, 
+los directores le hacen llegar el oficio a corporativa como respuesta
+y el administrador chequea que la correspondencia sea enviada.
+
+La documentacion no se ha empezado pero espero que esto les sea un poco
+de utilidad.
